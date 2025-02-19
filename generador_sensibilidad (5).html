@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Sensibilidad Free Fire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background: #ff5722;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e64a19;
+        }
+        .ad-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Generador de Sensibilidad Free Fire</h2>
+        <label for="device">Modelo de Teléfono:</label>
+        <input type="text" id="device" placeholder="Ej. Motorola One Macro">
+        
+        <label for="fingers">¿A cuántos dedos juegas?</label>
+        <select id="fingers">
+            <option value="2">2 dedos</option>
+            <option value="3">3 dedos</option>
+            <option value="4">4 dedos</option>
+        </select>
+        
+        <label for="dpiOption">¿Incluir DPI?</label>
+        <select id="dpiOption">
+            <option value="yes">Sí</option>
+            <option value="no">No</option>
+        </select>
+        
+        <button onclick="generateSensitivity()">Generar Configuración</button>
+        
+        <h3>Resultados:</h3>
+        <p id="result"></p>
+        
+        <div class="ad-container">
+            <p>Publicidad:</p>
+            <div id="ad-slot">Aquí aparecerán anuncios</div>
+        </div>
+    </div>
+
+    <script>
+        function generateSensitivity() {
+            let device = document.getElementById('device').value;
+            let fingers = document.getElementById('fingers').value;
+            let includeDPI = document.getElementById('dpiOption').value === "yes";
+            
+            let settings = {
+                "2": { general: 160, redDot: 150, x2: 170, x4: 180, awm: 190, dpi: 500, fireButtonSize: 50 },
+                "3": { general: 170, redDot: 160, x2: 180, x4: 190, awm: 195, dpi: 550, fireButtonSize: 55 },
+                "4": { general: 180, redDot: 170, x2: 190, x4: 200, awm: 200, dpi: 600, fireButtonSize: 60 }
+            };
+            
+            let sensitivity = settings[fingers];
+            
+            document.getElementById('result').innerHTML = `
+                <strong>Modelo:</strong> ${device} <br>
+                <strong>Jugando con:</strong> ${fingers} dedos <br>
+                <strong>Sensibilidad General:</strong> ${sensitivity.general} <br>
+                <strong>Punto Rojo:</strong> ${sensitivity.redDot} <br>
+                <strong>Mira 2x:</strong> ${sensitivity.x2} <br>
+                <strong>Mira 4x:</strong> ${sensitivity.x4} <br>
+                <strong>Mira AWM:</strong> ${sensitivity.awm} <br>
+                ${includeDPI ? `<strong>DPI Recomendado:</strong> ${sensitivity.dpi} <br>` : ''}
+                <strong>Tamaño del Botón de Disparo:</strong> ${sensitivity.fireButtonSize}% <br>
+            `;
+        }
+    </script>
+</body>
+</html>
